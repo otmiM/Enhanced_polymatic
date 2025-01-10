@@ -65,7 +65,8 @@
 ################################################################################
 
 use strict;
-use lib '/Users/alotmi.m/Desktop/Polymatic2';
+use Cwd; # Import the Cwd module to get the current directory
+use lib Cwd::getcwd();
 use Polymatic();
 use Getopt::Long();
 

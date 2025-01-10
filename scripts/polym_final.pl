@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 
 ################################################################################
 #
@@ -48,7 +47,9 @@
 ################################################################################
 
 use strict;
-use lib '/Users/alotmi.m/Desktop/Polymatic2';
+use Cwd;                     # Import the Cwd module to get the current directory
+use File::Basename;          # Import to handle paths
+use lib dirname(Cwd::getcwd());
 use Polymatic();
 use Math::Trig();
 use POSIX();

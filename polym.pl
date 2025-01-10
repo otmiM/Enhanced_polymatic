@@ -52,10 +52,8 @@
 
 use strict;
 #use lib '/blue/jsampath/alotmi.m/Polymatic/1';
-use Cwd;                     # Import the Cwd module to get the current directory
-use File::Basename;          # Import to handle paths
-use lib dirname(Cwd::getcwd());
-
+use Cwd; # Import the Cwd module to get the current directory
+use lib Cwd::getcwd();
 use Polymatic();
 use Math::Trig();
 

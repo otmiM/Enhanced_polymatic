@@ -86,7 +86,7 @@ package Polymatic;
 use strict;
 use Math::Trig();
 use POSIX();
-use XML::Simple();
+#use XML::Simple();
 
 # errExit( $error )
 # Exit program and print error

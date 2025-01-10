@@ -5,6 +5,9 @@
 # polym_loop.py
 # This file is part of the Polymatic distribution.
 #
+# Author: Lauren J. Abbott
+# Version: 1.1
+# Date: August 16, 2015
 #
 # Description: Controls the simulated polymerization loop of the Polymatic
 # algorithm. Polymerization steps are performed in cycles. After each bond is
@@ -18,6 +21,9 @@
 # specified at the beginning of the script.
 #
 ################################################################################
+#
+# Polymatic: a general simulated polymerization algorithm
+# Copyright (C) 2013, 2015 Lauren J. Abbott
 #
 # Polymatic is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -45,10 +51,10 @@ import glob
 
 # Parameters
 bonds = 0
-bonds_tot = 16
-bonds_cyc = 5
-md_cyc = 3
-md_max = 100
+bonds_tot = 49
+bonds_cyc = 3
+md_cyc = 5
+md_max = 500
 keep = 0
 
 # Input Scripts
@@ -64,9 +70,9 @@ script_init = 'polym_init.pl'
 script_final = 'polym_final.pl'
 
 # LAMMPS
-#lmps = 'lmp_serial -in /file/path/to/lammps-*/src/lmp_serial'
-lmps = 'mpirun -np 8 /usr/local/bin/lmp_mpi'
-
+#lmps = 'lmp_serial -in /file/path/to/lammps-*/src/lmp_serial
+lmps = 'mpirun -n 32 /apps/gcc/12.2.0/openmpi/4.1.5/lammps/02Aug23/bin/lmp_mpi'
+#lmps = 'srun --mpi=pmix_v3 lmp_ufhpc'
 
 # Main
 #
@@ -118,18 +124,23 @@ def polym_loop():
     # Finalization
     polym_final()
 
+script_dir = os.getcwd()
+
 def polym_step():
 
     # Variables
     global bonds
     attempts = 1
 
+    print(script_dir)
+
     # Attempt until successful or max attempts
     while (1):
 
         # Polymerization step
-        cmd = 'perl ../scripts/%s -i init.lmps -t ../types.txt -s ../scripts/%s -o data.lmps' \
-            % (script_step, input_polym)
+        cmd = 'perl {}/scripts/{} -i init.lmps -t ../types.txt -s {}/scripts/{} -o data.lmps'.format(script_dir, script_step, script_dir, input_polym)
+        #cmd = 'perl /blue/jsampath/alotmi.m/Polymatic/1/scripts/%s -i init.lmps -t ../types.txt -s /blue/jsampath/alotmi.m/Polymatic/1/scripts/%s -o data.lmps' \
+           # % (script_step, input_polym)
         sys.stdout.flush()
         code = subprocess.call(cmd.split())
 
