@@ -7,3 +7,5 @@ It also offers a way to generate types.txt file from a lammps datafile if these 
 
 It only requires Editing the forcefield setting in the scripts folder. It is recommended that you read the Polymatic Manual.  
 
+Enhanced_Polymatic also allows for high throughput implementation of Polymatic to create the initial structures for different polymer systems. 
+
